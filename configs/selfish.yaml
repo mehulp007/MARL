@@ -1,0 +1,7 @@
+# Selfish agents (ablation): each agent is rewarded for its own intersection only.
+#   .venv\Scripts\python.exe -m training.train --config configs/selfish.yaml --name selfish_s0 --seed 0
+reward:
+  coop_beta: 0.0
+train:
+  episodes: 300
+  eval_every: 10

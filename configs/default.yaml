@@ -1,0 +1,8 @@
+# Cooperative agents: 40 % of every agent's reward is its neighbours' local outcome.
+# This file only OVERRIDES core/config.py; anything not listed keeps its default.
+#   .venv\Scripts\python.exe -m training.train --config configs/default.yaml --name cooperative_s0 --seed 0
+reward:
+  coop_beta: 0.4
+train:
+  episodes: 300
+  eval_every: 10

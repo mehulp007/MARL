@@ -1,0 +1,8 @@
+# 10-episode pipeline test (about a minute). Proves the plumbing, not the policy.
+#   .venv\Scripts\python.exe -m training.train --config configs/smoke.yaml --name smoke
+reward:
+  coop_beta: 0.4
+train:
+  episodes: 10
+  eval_every: 5
+  snapshot_episodes: [0, 5, 10]
