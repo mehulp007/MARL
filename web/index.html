@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MARL Traffic Optimizer</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <h1>MARL Traffic Optimizer</h1>
+      <p>Two identical cities. Same vehicles, same disruptions. Only the signal control differs.</p>
+    </div>
+    <div class="transport" role="group" aria-label="Simulation controls">
+      <button id="play" class="btn primary" type="button" aria-pressed="true">Pause</button>
+      <div class="seg" id="speed" role="group" aria-label="Simulation speed"></div>
+      <label class="field">Traffic
+        <input id="demand" type="range" min="100" max="900" step="50" value="500">
+        <output id="demandOut" for="demand">500 veh/h</output>
+      </label>
+      <label class="field">Seed <input id="seed" type="number" min="0" max="99999" value="7"></label>
+      <button id="reset" class="btn" type="button">Restart</button>
+      <div class="clock" title="Simulated time since the last restart"><span id="clock">00:00</span></div>
+      <span id="conn" class="conn" role="status">connecting</span>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="cities" aria-label="The two cities">
+      <article class="city" data-side="A">
+        <header>
+          <span class="badge a">A</span>
+          <label class="sr-only" for="ctrlA">Controller of city A</label>
+          <select id="ctrlA" class="controller"></select>
+          <span class="mini" id="miniA"></span>
+        </header>
+        <div class="canvas-wrap"><canvas id="cityA" aria-label="City A: live map of vehicles and signals"></canvas></div>
+      </article>
+      <article class="city" data-side="B">
+        <header>
+          <span class="badge b">B</span>
+          <label class="sr-only" for="ctrlB">Controller of city B</label>
+          <select id="ctrlB" class="controller"></select>
+          <span class="mini" id="miniB"></span>
+        </header>
+        <div class="canvas-wrap"><canvas id="cityB" aria-label="City B: live map of vehicles and signals"></canvas></div>
+      </article>
+      <div class="mapkey">
+        <span><i class="sw moving"></i>moving</span>
+        <span><i class="sw slow"></i>slow</span>
+        <span><i class="sw stopped"></i>stopped</span>
+        <span><i class="sw ev"></i>emergency vehicle</span>
+        <span><i class="sw lamp"></i>green signal</span>
+        <span><i class="sw incident"></i>accident</span>
+        <span><i class="sw closed"></i>closed road</span>
+        <span class="zoom" role="group" aria-label="Zoom both maps">
+          <span class="hint">Drag to pan, Ctrl + scroll to zoom. Both maps move together.</span>
+          <span class="seg">
+            <button id="zoomOut" type="button" aria-label="Zoom out">−</button>
+            <button id="zoomIn" type="button" aria-label="Zoom in">+</button>
+            <button id="zoomFit" type="button">Fit</button>
+          </span>
+        </span>
+      </div>
+    </section>
+
+    <aside class="panel">
+      <section>
+        <h2>Learning timeline <small>city B</small></h2>
+        <div class="presets" id="presets" role="group" aria-label="Policy presets for city B"></div>
+        <label class="field block">Training progress of
+          <select id="tlGroup"></select>
+        </label>
+        <input id="timeline" type="range" min="0" max="10" step="1" value="10" aria-label="Training episode of the policy in city B">
+        <p class="note" id="tlLabel">&nbsp;</p>
+      </section>
+
+      <section>
+        <h2>Disrupt both cities</h2>
+        <div class="tools" id="tools" role="group" aria-label="Map tool"></div>
+        <label class="field block">Lasts
+          <select id="duration">
+            <option value="120">2 minutes</option>
+            <option value="300" selected>5 minutes</option>
+            <option value="null">until cleared</option>
+          </select>
+        </label>
+        <p class="note" id="toolHint">Pick a tool, then click a road on either map.</p>
+        <div class="row">
+          <span class="lbl">Surge from</span>
+          <div class="seg" id="surge" role="group" aria-label="Traffic surge from a city edge"></div>
+        </div>
+        <div class="row">
+          <button id="ev" class="btn" type="button">Send emergency vehicle</button>
+          <button id="clear" class="btn" type="button">Clear all</button>
+        </div>
+        <label class="field block">Scripted scenario
+          <span class="inline"><select id="scenario"></select><button id="runScenario" class="btn" type="button">Run from start</button></span>
+        </label>
+        <label class="field block">Adversary's worst cases
+          <span class="inline"><select id="adversary"></select><button id="unleash" class="btn warn" type="button">Unleash</button></span>
+        </label>
+      </section>
+
+      <section>
+        <h2>Event log</h2>
+        <ol id="events" class="events" aria-live="polite"></ol>
+      </section>
+    </aside>
+
+    <section class="kpis" aria-label="Live comparison">
+      <h2>Live comparison <small id="kpiSub"></small></h2>
+      <table id="kpiTable">
+        <thead><tr><th scope="col">Measure</th><th scope="col" id="kpiHeadA">A</th><th scope="col" id="kpiHeadB">B</th><th scope="col">B compared with A</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <section class="charts" aria-label="Rolling charts">
+      <h2>Last 15 simulated minutes</h2>
+      <div class="chart-legend" id="chartLegend"></div>
+      <div class="chart-grid" id="charts"></div>
+    </section>
+
+    <section class="corridor" aria-label="Corridor time-space diagram">
+      <h2>Corridor view <small>time-space diagram</small></h2>
+      <div class="row">
+        <label class="field">Corridor <select id="corridorSel"></select></label>
+        <span class="note">Time runs left to right over the last 5 minutes; distance along the corridor runs bottom to top. Each dot is a vehicle. An unbroken diagonal streak is a vehicle crossing several junctions (J1–J4) without stopping; a flat red streak is a queue. The line at each junction is green while its signal is green for the corridor.</span>
+      </div>
+      <div class="corridor-grid">
+        <figure><figcaption id="corrCapA">A</figcaption><canvas id="corrA"></canvas></figure>
+        <figure><figcaption id="corrCapB">B</figcaption><canvas id="corrB"></canvas></figure>
+      </div>
+    </section>
+
+    <footer class="measured">
+      <h2>What the full evaluation measured</h2>
+      <p>Nine scenarios, five unseen traffic seeds, three training runs per setting; every controller saw identical vehicles.</p>
+      <ul>
+        <li>The trained agents spend about <b>24% less time in the system</b> than a tuned fixed timer and about <b>8% less</b> than a guarded max-pressure controller, and are ahead of both in all nine scenarios.</li>
+        <li>Emergency vehicles stop about <b>0.2 times per trip</b> under the agents, against about 2 under either baseline.</li>
+        <li>The cooperative reward did <b>not</b> beat the selfish one: selfish agents are about 2% better.</li>
+        <li><b>No green wave</b> beyond a synchronised fixed timer was measured: both score about 0.55 on the arterial Green Wave Score.</li>
+        <li>Disruptions cost the agents about as much extra queueing as they cost the fixed timer; the agents stay ahead, they do not recover faster.</li>
+      </ul>
+    </footer>
+  </main>
+
+  <div id="toast" class="toast" role="alert" hidden></div>
+  <div id="tip" class="tip" hidden></div>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
