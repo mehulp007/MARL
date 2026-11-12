@@ -127,3 +127,7 @@ The self-check verifies the simulator's invariants on live runs: vehicles are co
 - The cooperation weight was tested at two values only (0 and 0.4).
 - The simulator is deliberately simple: no pedestrians, no right turn on red, lane changes only around obstacles.
 - The server is a local demo. All browser windows share one simulation, and it should not be exposed to a network.
+
+## License
+
+Released under the [MIT License](LICENSE).

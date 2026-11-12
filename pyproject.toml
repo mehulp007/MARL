@@ -8,6 +8,8 @@ version = "0.1.0"
 description = "Decentralised multi-agent reinforcement learning for traffic signal control on a simulated city grid."
 readme = "README.md"
 requires-python = ">=3.12"
+license = "MIT"
+authors = [{ name = "Mehul Patil" }]
 dependencies = [
     "numpy>=1.26",
     "torch>=2.3",
