@@ -1,0 +1,133 @@
+{
+  "policy": "checkpoints/cooperative.pt",
+  "reference": "maxpressure",
+  "metric": "time_in_system",
+  "seeds": [
+    850624,
+    636962
+  ],
+  "episode_len": 900.0,
+  "unperturbed": {
+    "regret": -14.947962788323451,
+    "policy": 134.616193120577,
+    "reference": 149.56415590890046
+  },
+  "history": [
+    {
+      "iteration": 1,
+      "best": -2.2192951164698798,
+      "mean": -10.816745747662154,
+      "elite_mean": -6.808205645011275,
+      "best_so_far": -2.2192951164698798,
+      "evaluations": 25
+    },
+    {
+      "iteration": 2,
+      "best": 0.21702300132955088,
+      "mean": -9.278331521107694,
+      "elite_mean": -4.204286669667259,
+      "best_so_far": 0.21702300132955088,
+      "evaluations": 49
+    },
+    {
+      "iteration": 3,
+      "best": -3.0918488355459885,
+      "mean": -9.326859798645552,
+      "elite_mean": -4.521056725540082,
+      "best_so_far": 0.21702300132955088,
+      "evaluations": 73
+    },
+    {
+      "iteration": 4,
+      "best": 0.7283179856030984,
+      "mean": -9.394926175188802,
+      "elite_mean": -5.139681714189375,
+      "best_so_far": 0.7283179856030984,
+      "evaluations": 97
+    },
+    {
+      "iteration": 5,
+      "best": 1.1927677109187869,
+      "mean": -9.471410228656486,
+      "elite_mean": -3.868202885957127,
+      "best_so_far": 1.1927677109187869,
+      "evaluations": 121
+    },
+    {
+      "iteration": 6,
+      "best": 0.505871006824691,
+      "mean": -7.926802548079475,
+      "elite_mean": -3.4853662623309183,
+      "best_so_far": 1.1927677109187869,
+      "evaluations": 145
+    },
+    {
+      "iteration": 7,
+      "best": 0.9638344414206585,
+      "mean": -6.5087392599134395,
+      "elite_mean": -2.680761127770699,
+      "best_so_far": 1.1927677109187869,
+      "evaluations": 169
+    },
+    {
+      "iteration": 8,
+      "best": 0.21560618910208973,
+      "mean": -6.790083166164031,
+      "elite_mean": -2.331178070535927,
+      "best_so_far": 1.1927677109187869,
+      "evaluations": 193
+    }
+  ],
+  "scenarios": [
+    {
+      "file": "adv_01.json",
+      "regret": 1.1927677109187869,
+      "added_by_adversary": 16.14073049924224,
+      "events": [
+        "65s incident",
+        "284s closure",
+        "298s surge"
+      ]
+    },
+    {
+      "file": "adv_02.json",
+      "regret": 0.9638344414206585,
+      "added_by_adversary": 15.91179722974411,
+      "events": [
+        "69s closure",
+        "352s closure",
+        "365s surge"
+      ]
+    },
+    {
+      "file": "adv_03.json",
+      "regret": 0.7283179856030984,
+      "added_by_adversary": 15.67628077392655,
+      "events": [
+        "100s closure",
+        "170s incident",
+        "361s closure"
+      ]
+    },
+    {
+      "file": "adv_04.json",
+      "regret": 0.505871006824691,
+      "added_by_adversary": 15.453833795148142,
+      "events": [
+        "81s closure",
+        "139s jam",
+        "280s surge"
+      ]
+    },
+    {
+      "file": "adv_05.json",
+      "regret": 0.21702300132955088,
+      "added_by_adversary": 15.164985789653002,
+      "events": [
+        "45s closure",
+        "217s incident",
+        "484s emergency"
+      ]
+    }
+  ]
+}

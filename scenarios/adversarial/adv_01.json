@@ -1,0 +1,47 @@
+{
+  "scenario": {
+    "name": "adversarial_01",
+    "description": "Found by cross-entropy search against a reference controller.",
+    "demand": {
+      "base_rate": 500.0
+    },
+    "events": [
+      {
+        "t": 65.0,
+        "kind": "incident",
+        "params": {
+          "link": 11,
+          "lane": 0,
+          "pos": 70.0,
+          "duration": 600.0
+        }
+      },
+      {
+        "t": 284.0,
+        "kind": "closure",
+        "params": {
+          "link": 18,
+          "duration": 577.0
+        }
+      },
+      {
+        "t": 298.0,
+        "kind": "surge",
+        "params": {
+          "side": "all",
+          "multiplier": 1.89,
+          "duration": 407.0
+        }
+      }
+    ]
+  },
+  "regret": 1.1927677109187869,
+  "policy_value": 216.7537549605481,
+  "reference_value": 215.5609872496293,
+  "metric": "time_in_system",
+  "seeds": [
+    850624,
+    636962
+  ],
+  "found_regret_over_unperturbed": 16.14073049924224
+}

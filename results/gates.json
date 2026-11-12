@@ -1,0 +1,144 @@
+{
+  "G1": {
+    "rule": "cooperative time in system at least 15% lower than the fixed timer (medium demand)",
+    "cooperative": 150.9444804979249,
+    "fixed": 197.88385777472632,
+    "change_pct": -23.72067019748415,
+    "passed": true
+  },
+  "G2": {
+    "rule": "cooperative time in system within 5% of max-pressure, or better (medium demand)",
+    "cooperative": 150.9444804979249,
+    "maxpressure": 164.1647295048854,
+    "change_pct": -8.053038583155026,
+    "passed": true
+  },
+  "G3": {
+    "rule": "gws_arterial: cooperative > selfish > random (medium demand)",
+    "cooperative": 0.5488208330184441,
+    "selfish": 0.5600289033935535,
+    "random": 0.10282805210270696,
+    "fixed": 0.5523452313972681,
+    "maxpressure": 0.434462074053452,
+    "passed": false
+  },
+  "G4": {
+    "rule": "the incident and the surge cause less extra queueing under cooperative than under the fixed timer (same seed with and without the event)",
+    "effect": {
+      "arterial_incident": {
+        "excess_veh_hours": {
+          "cooperative": -0.3155462962962964,
+          "selfish": -0.5648333333333334,
+          "fixed": 0.023555555555555684,
+          "maxpressure": -0.24147222222222248
+        },
+        "recovery_time": {
+          "cooperative": 241.0,
+          "selfish": 263.3333333333333,
+          "fixed": 0.0,
+          "maxpressure": 349.0
+        },
+        "peak_excess": {
+          "cooperative": 40.58000000000001,
+          "selfish": 39.79333333333333,
+          "fixed": 2.3,
+          "maxpressure": 42.44
+        }
+      },
+      "center_closure": {
+        "excess_veh_hours": {
+          "cooperative": 13.869185185185186,
+          "selfish": 9.495564814814815,
+          "fixed": 13.32513888888889,
+          "maxpressure": 7.3373333333333335
+        },
+        "recovery_time": {
+          "cooperative": 1251.0,
+          "selfish": 1044.0,
+          "fixed": 964.0,
+          "maxpressure": 1243.0
+        },
+        "peak_excess": {
+          "cooperative": 100.13333333333331,
+          "selfish": 79.71333333333334,
+          "fixed": 68.12000000000002,
+          "maxpressure": 85.28
+        }
+      },
+      "stadium_surge": {
+        "excess_veh_hours": {
+          "cooperative": 27.592712962962967,
+          "selfish": 25.533351851851855,
+          "fixed": 27.116972222222227,
+          "maxpressure": 26.861277777777776
+        },
+        "recovery_time": {
+          "cooperative": 1500.0,
+          "selfish": 1500.0,
+          "fixed": 1500.0,
+          "maxpressure": 1473.0
+        },
+        "peak_excess": {
+          "cooperative": 149.6933333333333,
+          "selfish": 139.76000000000002,
+          "fixed": 160.27999999999997,
+          "maxpressure": 157.0
+        }
+      },
+      "compound_chaos": {
+        "excess_veh_hours": {
+          "cooperative": 63.02054629629629,
+          "selfish": 65.24152777777778,
+          "fixed": 35.90436111111111,
+          "maxpressure": 64.23786111111112
+        },
+        "recovery_time": {
+          "cooperative": 1123.6666666666667,
+          "selfish": 1405.6666666666667,
+          "fixed": 1600.0,
+          "maxpressure": 1309.0
+        },
+        "peak_excess": {
+          "cooperative": 288.2933333333333,
+          "selfish": 300.18,
+          "fixed": 194.98000000000002,
+          "maxpressure": 310.82
+        }
+      }
+    },
+    "passed": false
+  },
+  "G5": {
+    "rule": "emergency vehicles stop less often under cooperative than under the fixed timer",
+    "ev_stops": {
+      "steady_medium": {
+        "cooperative": 0.21587301587301588,
+        "fixed": 2.104761904761905,
+        "maxpressure": 2.3619047619047615
+      },
+      "emergency_corridor": {
+        "cooperative": 0.2564102564102564,
+        "fixed": 1.9384615384615387,
+        "maxpressure": 2.2
+      }
+    },
+    "passed": true
+  },
+  "cooperative_vs_selfish": {
+    "note": "time in system at medium demand per training seed; lower is better",
+    "cooperative_runs": {
+      "cooperative_s0": 150.25472976364063,
+      "cooperative_s1": 152.20644084171664,
+      "cooperative_s2": 150.3722708884173
+    },
+    "selfish_runs": {
+      "selfish_s0": 146.31798492198078,
+      "selfish_s1": 148.25012992619654,
+      "selfish_s2": 149.31637635184399
+    },
+    "cooperative_mean": 150.9444804979249,
+    "selfish_mean": 147.9614970666738,
+    "cooperative_better": false,
+    "ranges_overlap": false
+  }
+}

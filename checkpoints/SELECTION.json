@@ -1,0 +1,23 @@
+{
+  "rule": "median training seed by time in system at medium demand (not the best one)",
+  "selected": {
+    "cooperative": {
+      "run": "cooperative_s2",
+      "time_in_system": 150.3722708884173,
+      "all_runs": {
+        "cooperative_s0": 150.25472976364063,
+        "cooperative_s2": 150.3722708884173,
+        "cooperative_s1": 152.20644084171664
+      }
+    },
+    "selfish": {
+      "run": "selfish_s1",
+      "time_in_system": 148.25012992619654,
+      "all_runs": {
+        "selfish_s0": 146.31798492198078,
+        "selfish_s1": 148.25012992619654,
+        "selfish_s2": 149.31637635184399
+      }
+    }
+  }
+}
