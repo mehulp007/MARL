@@ -1,0 +1,28 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Training output. Committed on purpose: the final per-seed policies
+# (checkpoints/<group>_s<seed>.pt), the promoted ones (checkpoints/<group>.pt)
+# and the promoted snapshots (checkpoints/<group>/ep_*.pt) the UI timeline needs.
+runs/
+checkpoints/**/resume*.pt
+checkpoints/**/*.tmp
+checkpoints/*_s[0-9]*/
+checkpoints/smoke*
+
+# Local tooling
+.vscode/
+.idea/
+
+# OS
+Thumbs.db
+desktop.ini
+.DS_Store

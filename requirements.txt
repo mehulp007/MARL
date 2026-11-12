@@ -1,0 +1,23 @@
+# Exact versions of the working environment (Python 3.12.10, Windows 11, CPU only).
+# Create it with:
+#   py -3.12 -m venv .venv
+#   .venv\Scripts\python.exe -m pip install -r requirements.txt
+--extra-index-url https://download.pytorch.org/whl/cpu
+
+# core/ (the math library)
+numpy==2.5.4
+torch==2.15.0
+
+# server/
+fastapi==0.162.4
+uvicorn[standard]==0.54.0
+orjson==3.13.0
+
+# training/ and configs/
+PyYAML==6.0.3
+matplotlib==3.11.2
+tensorboard==2.21.0
+
+# tests/
+pytest==9.2.0
+httpx2==2.16.0            # needed by fastapi.testclient
